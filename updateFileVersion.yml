@@ -1,0 +1,30 @@
+parameters:
+
+- name: filePath
+  type: string
+  default: '$(Build.SourcesDirectory)'
+  
+- name: versionNumber
+  type: string
+
+- name: useBuildNumberDirectly
+  type: boolean
+  default: true
+  
+- name: filenamePattern
+  type: string
+  default: 'package.json'
+
+- name: outputVersion
+  type: string
+  default: 'OutputedVersion'
+
+steps:
+  - task: VersionJSONFile@3
+    displayName: Set Package Version
+    inputs:
+      Path: ${{ parameters.filePath }}
+      VersionNumber: ${{ parameters.versionNumber }}
+      useBuildNumberDirectly: ${{ parameters.useBuildNumberDirectly }}
+      FilenamePattern: ${{ parameters.filenamePattern }}
+      OutputVersion: ${{ parameters.outputVersion }}
